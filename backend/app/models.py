@@ -35,3 +35,18 @@ class Match(Base):
     match_date = Column(Date, default=date.today)
 
     status = Column(String, default="Scheduled")
+
+
+class Event(Base):
+
+    __tablename__ = "events"
+
+    id = Column(Integer, primary_key=True, index=True)
+
+    host_name = Column(String, nullable=False)
+
+    event_type = Column(String, nullable=False)
+
+    match_type = Column(String, nullable=False)
+
+    status = Column(String, default="Scheduled")

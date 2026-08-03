@@ -5,9 +5,7 @@ from . import models
 from .routers import players
 from .routers import matches
 
-
-Base.metadata.create_all(bind=engine)
-
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
