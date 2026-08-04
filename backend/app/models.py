@@ -1,7 +1,23 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ForeignKey, Table
+from sqlalchemy.orm import relationship
 from .database import Base
 
 
+
+event_players = Table(
+    "event_players",
+    Base.metadata,
+    Column(
+        "event_id",
+        Integer,
+        ForeignKey("events.id")
+    ),
+    Column(
+        "player_id",
+        Integer,
+        ForeignKey("players.id")
+    )
+)
 class Player(Base):
 
     __tablename__ = "players"
@@ -17,7 +33,12 @@ class Player(Base):
     assists = Column(Integer, default=0)
 
     mvp_count = Column(Integer, default=0)
-
+    events = relationship(
+    "Event",
+    secondary=event_players,
+    back_populates="players"
+)
+from sqlalchemy.orm import relationship
 from sqlalchemy import Column, Integer, String, Date
 from datetime import date
 
@@ -35,7 +56,7 @@ class Match(Base):
     match_date = Column(Date, default=date.today)
 
     status = Column(String, default="Scheduled")
-
+   
 
 class Event(Base):
 
@@ -52,3 +73,9 @@ class Event(Base):
     event_date = Column(Date, default=date.today)
 
     status = Column(String, default="Scheduled")
+players = relationship(
+    "Player",
+    secondary=event_players,
+    back_populates="events"
+)
+

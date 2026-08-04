@@ -39,3 +39,33 @@ def create_event(event: schemas.EventCreate, db: Session = Depends(get_db)):
 @router.get("/", response_model=list[schemas.EventResponse])
 def get_events(db: Session = Depends(get_db)):
     return db.query(models.Event).all()
+
+
+@router.post("/{event_id}/players/{player_id}")
+def add_player_to_event(
+    event_id: int,
+    player_id: int,
+    db: Session = Depends(get_db)
+):
+
+    event = db.query(models.Event).filter(
+        models.Event.id == event_id
+    ).first()
+
+    player = db.query(models.Player).filter(
+        models.Player.id == player_id
+    ).first()
+
+    if not event:
+        return {"error": "Event not found"}
+
+    if not player:
+        return {"error": "Player not found"}
+
+    event.players.append(player)
+
+    db.commit()
+
+    return {
+        "message": "Player added to event"
+    }
