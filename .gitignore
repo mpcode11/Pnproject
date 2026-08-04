@@ -2,3 +2,4 @@ backend/football.db
 backend/venv/
 __pycache__/
 *.pyc
+venv/
