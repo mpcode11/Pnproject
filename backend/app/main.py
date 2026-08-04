@@ -4,13 +4,15 @@ from .database import Base
 from . import models 
 from .routers import players
 from .routers import matches
+from .routers import events
 
-models.Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
 app.include_router(players.router)
 app.include_router(matches.router)
+app.include_router(events.router)
 
 
 @app.get("/")

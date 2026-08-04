@@ -1,6 +1,7 @@
 from pydantic import BaseModel
+from datetime import date
 
-
+#player schema 
 class PlayerCreate(BaseModel):
     name: str
     skill_rating: int = 5
@@ -14,7 +15,7 @@ class PlayerResponse(BaseModel):
     class Config:
         from_attributes = True
 
-from datetime import date
+#matches schema 
 
 
 class MatchCreate(BaseModel):
@@ -34,6 +35,25 @@ class MatchResponse(BaseModel):
 
     match_date: date
 
+    status: str
+
+    class Config:
+        from_attributes = True
+
+    #events schema
+
+class EventCreate(BaseModel):
+    host_name: str
+    event_type: str
+    match_type: str
+
+
+class EventResponse(BaseModel):
+    id: int
+    host_name: str
+    event_type: str
+    match_type: str
+    event_date: date
     status: str
 
     class Config:

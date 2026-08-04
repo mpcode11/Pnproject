@@ -49,4 +49,6 @@ class Event(Base):
 
     match_type = Column(String, nullable=False)
 
+    event_date = Column(Date, default=date.today)
+
     status = Column(String, default="Scheduled")
